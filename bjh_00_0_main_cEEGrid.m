@@ -18,31 +18,31 @@ addpath(genpath([MAINPATH,'software',filesep,'mTRF-Toolbox-2.1',filesep,...
     'mickcrosse-mTRF-Toolbox-a2806ca',filesep]));
 
 % indicate which steps to skip (which steps have been computed before)
-config.AAD_select_and_reref = 0;
-config.AAD_clean = 0;
+config.AAD_select_and_reref = 1;
+config.AAD_clean = 1;
 config.AAD_psd_raw_vs_clean = 1;
-config.AAD_prep = 0;
-config.AAD_envelope  = 0;
-config.AAD_select_envelope = 0;
-config.AAD_val_test_sep = 0;
-config.AAD_val_test_mix = 0;
-config.AAD_plot_figure = 0;
-config.ISC_select_and_reref = 0;
-config.ISC_clean_rawdata = 0;
-config.ISC_filt = 0;
-config.ISC_forward_model = 0;
-config.ISC_same_other = 0;
-config.ISC_same_other_chance = 0;
-config.ISC_left_right = 0;
-config.ISC_plot_figure = 0;
+config.AAD_prep = 1;
+config.AAD_envelope  = 1;
+config.AAD_select_envelope = 1;
+config.AAD_val_test_sep = 1;
+config.AAD_val_test_mix = 1;
+config.AAD_plot_figure = 1;
+config.ISC_select_and_reref = 1;
+config.ISC_clean_rawdata = 1;
+config.ISC_filt = 1;
+config.ISC_forward_model = 1;
+config.ISC_same_other = 1;
+config.ISC_same_other_chance = 1;
+config.ISC_left_right = 1;
+config.ISC_plot_figure = 1;
 config.ISC_plot_supp_figure = 1;
-config.SpE_select_and_reref = 0;
-config.SpE_clean_rawdata = 0;
-config.SpE_filt = 0;
-config.SpE_compute_entropy = 0;
-config.SpE_plot_figure = 0;
+config.SpE_select_and_reref = 1;
+config.SpE_clean_rawdata = 1;
+config.SpE_filt = 1;
+config.SpE_compute_entropy = 1;
+config.SpE_plot_figure = 1;
 config.SpE_plot_supp_figure = 1;
-config.BTW_plot_AAD_ISC_figure = 0;
+config.BTW_plot_AAD_ISC_figure = 1;
 config.BTW_plot_AAD_ISC_SpE_supp_figure = 1;
 
 % create data path
