@@ -18,30 +18,31 @@ addpath(genpath([MAINPATH,'software',filesep,'mTRF-Toolbox-2.1',filesep,...
     'mickcrosse-mTRF-Toolbox-a2806ca',filesep]));
 
 % indicate which steps to skip (which steps have been computed before)
-config.AAD_select_and_reref = 1;
-config.AAD_clean = 1;
-config.AAD_prep = 1;
-config.AAD_envelope  = 1;
-config.AAD_select_envelope = 1;
-config.AAD_val_test_sep = 1;
-config.AAD_val_test_mix = 1;
-config.AAD_plot_figure = 1;
-config.ISC_select_and_reref = 1;
-config.ISC_clean_rawdata = 1;
-config.ISC_filt = 1;
-config.ISC_forward_model = 1;
-config.ISC_same_other = 1;
-config.ISC_same_other_chance = 1;
-config.ISC_left_right = 1;
-config.ISC_plot_figure = 1;
+config.AAD_select_and_reref = 0;
+config.AAD_clean = 0;
+config.AAD_psd_raw_vs_clean = 1;
+config.AAD_prep = 0;
+config.AAD_envelope  = 0;
+config.AAD_select_envelope = 0;
+config.AAD_val_test_sep = 0;
+config.AAD_val_test_mix = 0;
+config.AAD_plot_figure = 0;
+config.ISC_select_and_reref = 0;
+config.ISC_clean_rawdata = 0;
+config.ISC_filt = 0;
+config.ISC_forward_model = 0;
+config.ISC_same_other = 0;
+config.ISC_same_other_chance = 0;
+config.ISC_left_right = 0;
+config.ISC_plot_figure = 0;
 config.ISC_plot_supp_figure = 1;
-config.SpE_select_and_reref = 1;
-config.SpE_clean_rawdata = 1;
-config.SpE_filt = 1;
-config.SpE_compute_entropy = 1;
-config.SpE_plot_figure = 1;
+config.SpE_select_and_reref = 0;
+config.SpE_clean_rawdata = 0;
+config.SpE_filt = 0;
+config.SpE_compute_entropy = 0;
+config.SpE_plot_figure = 0;
 config.SpE_plot_supp_figure = 1;
-config.BTW_plot_AAD_ISC_figure = 1;
+config.BTW_plot_AAD_ISC_figure = 0;
 config.BTW_plot_AAD_ISC_SpE_supp_figure = 1;
 
 % create data path
@@ -81,6 +82,20 @@ end
             disp('Loading ALLEEG_AAD_clean ...');
             load([fileout_AAD_clean,'.mat'],'ALLEEG_AAD_clean');
         end
+        
+    %%% compare spectral energy before and after artifact correction
+        fileout_AAD_psd_raw_vs_clean = [DATAPATH,'Supp_Figure_1'];
+        freq_range = [2,8]; % 2 to 8 Hz
+        seg_s = 1; % in seconds
+
+        if config.AAD_psd_raw_vs_clean
+            [PSD_change_db] = bjh_01_AAD_02_comp_raw_and_clean(fileout_AAD_psd_raw_vs_clean,...
+                ALLEEG_AAD_select_and_reref,ALLEEG_AAD_clean,seg_s,freq_range);
+            save([fileout_AAD_psd_raw_vs_clean,'.mat'],'PSD_change_db','-v7.3');
+        else
+            load([fileout_AAD_psd_raw_vs_clean,'.mat'],'PSD_change_db');
+        end
+            
 
     %%% prepare cEEGrid data for mTRF Toolbox %%%
         fileout_prep_with_asr = [DATAPATH,'ALLEEG_AAD_prep_with_ASR'];
@@ -334,7 +349,7 @@ end
         end
 
     %%% Plot ISC Supplementary Figure %%%
-        fileout_plot_ISC_supp_figure = [DATAPATH,'Supp_Figure_1'];
+        fileout_plot_ISC_supp_figure = [DATAPATH,'Supp_Figure_2'];
 
         if config.ISC_plot_supp_figure
             bjh_02_ISC_05_plot_ISC_supp_fig(fileout_plot_ISC_supp_figure,ALLEEG_ISC_filt,...
@@ -414,7 +429,7 @@ end
         end
 
     %%% Plot Spectral Entropy Supplementary Figure %%%
-        fileout_SpE_plot_supp_figure = [DATAPATH,'Supp_Figure_2'];
+        fileout_SpE_plot_supp_figure = [DATAPATH,'Supp_Figure_3'];
 
         if config.SpE_plot_supp_figure
             bjh_03_SpE_05_plot_entropy_supp_figure(fileout_SpE_plot_supp_figure,SpE_results)
@@ -432,7 +447,7 @@ end
         end
     
     % plot AAD ~ SpE and ISC ~ SpE supplementary figure
-        fileout_plot_AAD_ISC_SpE_supp_figure = [DATAPATH,'Supp_Figure_3'];
+        fileout_plot_AAD_ISC_SpE_supp_figure = [DATAPATH,'Supp_Figure_4'];
 
         if config.BTW_plot_AAD_ISC_SpE_supp_figure == 1
             bjh_04_BTW_01_plot_AAD_ISC_SpE_supp_figure(fileout_plot_AAD_ISC_SpE_supp_figure,...
